@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/editText_Catg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ジャンル" />
+
+    <EditText
+        android:id="@+id/editText_Ques"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="質問" />
+
+    <EditText
+        android:id="@+id/editText_Answ"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="答え" />
+
+    <Button
+        android:id="@+id/putButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="登録" />
+
+    <Button
+        android:id="@+id/getButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="消去" />
+
+</LinearLayout>
