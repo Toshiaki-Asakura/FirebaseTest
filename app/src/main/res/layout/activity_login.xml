@@ -11,36 +11,41 @@
     tools:context=".LoginActivity">
 
     <EditText
+        android:id="@+id/emailText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/emailText"
+        android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
         android:hint="メールアドレス" />
 
     <EditText
+        android:id="@+id/passwordText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
+        android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
         android:hint="パスワード(6文字以上)"
-        android:id="@+id/passwordText" />
+        android:inputType="textPassword" />
 
     <EditText
+        android:id="@+id/nameText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="表示名"
-        android:id="@+id/nameText" />
+        android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
+        android:hint="表示名" />
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:background="@android:color/holo_orange_dark"
         android:text="ログイン" />
 
     <Button
+        android:id="@+id/createButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="アカウント作成"
-        android:id="@+id/createButton" />
+        android:background="@android:drawable/ic_lock_lock"
+        android:text="アカウント作成" />
 
 </LinearLayout>
