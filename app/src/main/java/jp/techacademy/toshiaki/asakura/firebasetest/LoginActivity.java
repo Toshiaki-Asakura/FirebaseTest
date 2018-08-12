@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     // アカウント作成時にフラグを立て、ログイン処理後に名前をFirebaseに保存する
     boolean mIsCreateAccount = false;  //--------------------------------------------------------フラグははじめは「false」で行こう！
 
-//◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆onCreate◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+//◆◆◆onCreate◆◆◆
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,28 +79,19 @@ public class LoginActivity extends AppCompatActivity {
         };
 
     //■■■ログイン処理のリスナーのインスタンス化・実装
-
-        mLoginListener = new OnCompleteListener<AuthResult>() {  //-------------------------------ログイン状況もOnCompleteListenerで受け取り
+        mLoginListener = new OnCompleteListener<AuthResult>() {                                                    //-------------------------------ログイン状況もOnCompleteListenerで受け取り
             @Override
-            public void onComplete(Task<AuthResult> task) {  //------------------------------------Task Task(View v)みたいなものか？要件があってるかどうかを尋ねてそう
-
-                if (task.isSuccessful()) {  //------------------------------------------------------LoginActhivity成功したらログイン
-
-                    FirebaseUser user = mAuth.getCurrentUser();  //--------------------------------ログインしているユーザーを取得
-                    DatabaseReference userRef = mDataBaseReference.child(Const.UsersPATH).child(user.getUid());
-                                                                      //----------------------------ユーザーの中から絞り込んだものが「userRef」
-
-                                if (mIsCreateAccount) {  //---------------------------------------もともと「false」設定なので
-                                    Log.d("asat","新規アカウント");//━■━■━■━■━
-                                    String name = mNameEditText.getText().toString();  //---------表示用Edittextの値をStringで「name」
-
-                                    Map<String, String> data = new HashMap<String, String>();  //---こここでキーと値を宣言して初期化「data」という名のオブジェクトに
-                                    data.put("name", name);  //-------------------------------------で「name」ってキーにアカウント時の表示名をセットして
-                                    userRef.setValue(data);  //-------------------------------------Firebaseにデータを保存
-                                    saveName(name);  //---------------------------------------------⇒■■■メソッド名「saveName」■■■
-
+            public void onComplete(Task<AuthResult> task) {                                                       //------------------------------------Task Task(View v)みたいなものか？要件があってるかどうかを尋ねてそう
+                if (task.isSuccessful()) {                                                                          //------------------------------------------------------LoginActhivity成功したらログイン
+                    FirebaseUser user = mAuth.getCurrentUser();                                                      //--------------------------------ログインしているユーザーを取得
+                    DatabaseReference userRef = mDataBaseReference.child(Const.UsersPATH).child(user.getUid()); //----------------------------ユーザーの中から絞り込んだものが「userRef」
+                                if (mIsCreateAccount) {                                                          //---------------------------------------もともと「false」設定なので
+                                    String name = mNameEditText.getText().toString();                                //---------表示用Edittextの値をStringで「name」
+                                    Map<String, String> data = new HashMap<String, String>();                                  //---こここでキーと値を宣言して初期化「data」という名のオブジェクトに
+                                    data.put("name", name);                                                        //-------------------------------------で「name」ってキーにアカウント時の表示名をセットして
+                                    userRef.push().setValue(data);                                                    //-------------------------------------Firebaseにデータを保存
+                                    saveName(name);                                                                    //---------------------------------------------⇒■■■メソッド名「saveName」■■■
                                 } else {
-                                    Log.d("asat","ログイン");//━■━■━■━■━
                                     userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot snapshot) {
@@ -112,15 +103,11 @@ public class LoginActivity extends AppCompatActivity {
                                         }
                                     });
                                 }
-
                     mProgress.dismiss();
                     finish();
-
                 } else {  //-----------------------------------------------------------------------成功以外ならスナックバーに失敗を表示
-
                     View view = findViewById(android.R.id.content);
                     Snackbar.make(view, "ログインに失敗しました", Snackbar.LENGTH_LONG).show();
-
                     mProgress.dismiss();
                 }
             }
@@ -140,7 +127,7 @@ public class LoginActivity extends AppCompatActivity {
         mProgress.setMessage("処理中...");  //----------------------------------------------------ダイアログのメッセージは「処理中」
         Log.d("asat","処理中...");//━■━■━■━■━
 
-    //■■■ボタンの準備①アカウント作成ボタン■■■■■■■■■
+    //■■■ボタンの準備①アカウント作成ボタン
 
         Button createButton = (Button) findViewById(R.id.createButton);  //------------------------createButtonを実態か
         Log.d("asat","アカウントボタン準備");//━■━■━■━■━
@@ -195,7 +182,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-//◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆onCreate finish◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+//◆◆◆onCreate finish◆◆◆
 
     private void createAccount(String email, String password) {  //--------------------------------■■■個別メソッド名「createAcount()」■■■
         // プログレスダイアログを表示する

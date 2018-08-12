@@ -48,39 +48,42 @@ public class MainActivity extends AppCompatActivity{
         putButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                DatabaseReference dataBaseReference = FirebaseDatabase.getInstance().getReference();    //Firebaseにつなぐおまじない
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();  //----------------getCurrentUserでログイン状態かどうかわかる
-                //--------ログインしていない場合はgetCurrentUserはnullを返す
-                if (user == null) {
-                    // ログインしていなければログイン画面に遷移させる
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                    startActivity(intent);
-                    Log.d("asat","■ログインがないのでIntentします！■");
-                }
-
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 mCateg = (EditText) findViewById(R.id.editText_Catg);
                 String str_Categ = mCateg.getText().toString();
                 mQues = (EditText) findViewById(R.id.editText_Ques);
                 String str_Ques = mQues.getText().toString();
                 mAns = (EditText) findViewById(R.id.editText_Answ);
                 String str_Ans = mAns.getText().toString();
-                                                                                                    Log.d("asat","■Category1■："+str_Categ);
-                                                                                                    Log.d("asat","■Question1■："+str_Ques);
-                                                                                                    Log.d("asat","■Answer1■："+str_Ans);
+                Log.d("asat","■Category1■："+str_Categ);
+                Log.d("asat","■Question1■："+str_Ques);
+                Log.d("asat","■Answer1■："+str_Ans);
+                // ログインしていなければログイン画面に遷移させる
+                if (user == null) {
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(intent);
+                    Log.d("asat","■ログインがないのでIntentします！■");
+                }
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 Map<String, String> data = new HashMap<String, String>();
                 data.put("Category", str_Categ);
                 data.put("Question", str_Ques);
                 data.put("Answer", str_Ans);
-
                  DatabaseReference dataRef = mDatabase.child(Const.ContentsPATH).child(Const.GenrePATH);
                 dataRef.push().setValue(data);
+                }
+        });
 
+        Button deleteButton = (Button) findViewById(R.id.deletelButton);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDatabase = FirebaseDatabase.getInstance().getReference();
+                Map<String, String> data = new HashMap<String, String>();
+                DatabaseReference dataRef = mDatabase.child(Const.ContentsPATH).child(Const.GenrePATH);
+                dataRef.removeValue();
             }
         });
 
-        //mTestDataRef = dataBaseReference.child(Const.ContentsPATH).child(Const.GenrePATH);
-        //mTestDataRef.addChildEventListener(mTestDataListener);
     }
 }

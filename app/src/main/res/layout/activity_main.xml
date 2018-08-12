@@ -10,19 +10,19 @@
         android:id="@+id/editText_Catg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ジャンル" />
+        android:hint="ジャンル" />
 
     <EditText
         android:id="@+id/editText_Ques"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="質問" />
+        android:hint="質問" />
 
     <EditText
         android:id="@+id/editText_Answ"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="答え" />
+        android:hint="答え" />
 
     <Button
         android:id="@+id/putButton"
@@ -31,7 +31,7 @@
         android:text="登録" />
 
     <Button
-        android:id="@+id/getButton"
+        android:id="@+id/deletelButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="消去" />
